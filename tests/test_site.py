@@ -88,13 +88,25 @@ class SiteTests(unittest.TestCase):
     def test_homepage_has_story_led_conversion_funnel(self):
         self.assertIn('<body class="home">', self.text)
         self.assertIn('class="grove-scene"', self.text)
+        self.assertIn('class="pixel-scene"', self.text)
         self.assertIn('class="portal"', self.text)
         self.assertGreaterEqual(self.text.count('class="model-spirit'), 4)
         self.assertIn('class="path-picker"', self.text)
         self.assertGreaterEqual(self.text.count('class="path-card'), 3)
+        self.assertIn('class="offer-card', self.text)
         self.assertIn('class="mobile-cta"', self.text)
-        self.assertIn("Referral link · Try with 5% off", self.text)
+        self.assertIn("Step inside · 5% off", self.text)
         self.assertIn('src="assets/experience.mjs"', self.text)
+
+    def test_homepage_explains_offering_and_keeps_disclosure_proportionate(self):
+        # The offering is explained in plain terms…
+        self.assertIn("behind a single prepaid balance", self.text)
+        self.assertIn("Pay per prompt", self.text)
+        # …and the referral disclosure stays present but is stated once per
+        # placement rather than shouted in the hero eyebrow.
+        self.assertNotIn("Advertisement", self.text)
+        self.assertIn("Referral link", self.text)
+        self.assertIn("How does this site make money?", self.text)
 
     def test_motion_is_progressive_and_respects_user_preference(self):
         script = (ROOT / "assets" / "experience.mjs").read_text(encoding="utf-8")
