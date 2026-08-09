@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Connect Cline to NanoGPT and diagnose missing thinking output with the documented modern and legacy reasoning endpoints, safe checks and rollback steps.">
+  <meta name="theme-color" content="#101828">
+  <link rel="canonical" href="https://modelgrove.dev/guides/nanogpt-cline-reasoning.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="NanoGPT with Cline: setup and missing thinking output">
+  <meta property="og:description" content="An independent, symptom-led guide to Cline setup and NanoGPT reasoning compatibility.">
+  <meta property="og:url" content="https://modelgrove.dev/guides/nanogpt-cline-reasoning.html">
+  <meta name="twitter:card" content="summary">
+  <title>NanoGPT with Cline: setup and missing thinking fix | ModelGrove</title>
+  <link rel="stylesheet" href="../assets/styles.css?v=905f61a6c2df">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "NanoGPT with Cline: setup and missing thinking output",
+    "datePublished": "2026-08-09",
+    "dateModified": "2026-08-09",
+    "author": {"@type": "Person", "name": "Nova"},
+    "publisher": {"@type": "Organization", "name": "ModelGrove"},
+    "description": "Configure NanoGPT as an OpenAI-compatible provider in Cline and diagnose reasoning display issues.",
+    "mainEntityOfPage": "https://modelgrove.dev/guides/nanogpt-cline-reasoning.html"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="ModelGrove home"><span class="brand-mark" aria-hidden="true"><svg class="pixel-logo" viewBox="0 0 12 14" shape-rendering="crispEdges" aria-hidden="true"><path fill="#74f0c1" d="M4 0h2v2H4zM3 1h1v1H3zM6 1h1v1H6z"/><path fill="#241b36" d="M2 3h8v1H2zM1 4h10v9H1zM1 13h10v1H1z"/><path fill="#b98aff" d="M3 4h6v3H3z"/><path fill="#7a4ff0" d="M3 7h6v3H3z"/><path fill="#62d8ff" d="M3 12h6v1H3z"/></svg></span>ModelGrove</a>
+      <div class="nav-links"><a href="#configure">Configure</a><a href="#diagnose">Diagnose</a><a href="#verify">Verify</a><a href="#rollback">Rollback</a></div>
+      <a class="button button-small" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">5% off qualifying web queries</a>
+    </nav>
+  </header>
+
+  <main id="main" class="article-main">
+    <article>
+      <header class="article-hero shell">
+        <p class="eyebrow">Independent troubleshooting guide</p>
+        <h1>NanoGPT with Cline: fix missing thinking without guessing.</h1>
+        <p class="lede">Start with NanoGPT’s normal OpenAI-compatible base URL. If a thinking model answers but Cline does not display its separate reasoning stream, switch only the base URL to NanoGPT’s documented legacy compatibility path.</p>
+        <p class="microcopy">Referral links on this page give you 5% off qualifying NanoGPT website queries (no API discount claimed) and may earn this independent site credit.</p>
+        <div class="article-meta"><span>Fact-checked 9 August 2026</span><span>First-party endpoint behaviour verified</span><span>No paid inference claimed</span></div>
+      </header>
+
+      <div class="article-layout shell">
+        <aside class="article-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#symptom">Name the symptom</a>
+          <a href="#configure">Configure Cline</a>
+          <a href="#diagnose">Choose the endpoint</a>
+          <a href="#verify">Verify safely</a>
+          <a href="#errors">Other errors</a>
+          <a href="#rollback">Rollback</a>
+          <a href="#sources">Sources and limits</a>
+        </aside>
+
+        <div class="article-content">
+          <section id="symptom" class="callout important">
+            <h2>Missing thinking is not the same as a failed request.</h2>
+            <p>First confirm whether Cline receives a final answer. If it does, authentication and model routing probably worked. The narrower problem may be a field-name mismatch: NanoGPT’s normal endpoint emits separate reasoning as <code>reasoning</code>, while an older client path may expect <code>reasoning_content</code>.</p>
+          </section>
+
+          <section id="configure">
+            <p class="eyebrow">Clean setup</p>
+            <h2>Use Cline’s OpenAI Compatible provider.</h2>
+            <p>Open Cline settings with the cog icon and enter the following values. Cline’s own documentation identifies Base URL, API key and Model ID as the three core settings for an OpenAI-compatible provider.</p>
+            <div class="diagnostic-grid">
+              <div><h3>API Provider</h3><p><code>OpenAI Compatible</code></p></div>
+              <div><h3>Base URL</h3><p><code>https://nano-gpt.com/api/v1/</code></p></div>
+              <div><h3>API Key</h3><p>Your NanoGPT key, entered only in Cline’s settings.</p></div>
+              <div><h3>Model ID</h3><p>An exact current ID from NanoGPT’s live model catalogue.</p></div>
+            </div>
+            <p>Do not put the key in a repository, screenshot, support post or URL. NanoGPT currently uses <code>openai/gpt-5.2</code> as an example in its Cline guide, but that is not a permanent recommendation.</p>
+          </section>
+
+          <section id="diagnose">
+            <p class="eyebrow">Decision path</p>
+            <h2>Change one variable at a time.</h2>
+            <div class="diagnostic-grid">
+              <div><h3>Normal answer and visible thinking</h3><p>Keep <code>https://nano-gpt.com/api/v1/</code>. No compatibility change is needed.</p></div>
+              <div><h3>Normal answer, thinking missing</h3><p>Confirm the exact model is documented to emit visible reasoning. Then change only the Base URL to <code>https://nano-gpt.com/api/v1legacy/</code> and repeat one small test.</p></div>
+              <div><h3>No answer at all</h3><p>Do not blame reasoning fields. Check the key, balance, base URL, model ID and network path first.</p></div>
+              <div><h3>Reasoning appears in answer text</h3><p>Do not switch to <code>/api/v1thinking/</code> by reflex. That path deliberately merges reasoning into ordinary content and NanoGPT’s Cline-specific guide recommends <code>/api/v1legacy/</code> for Cline’s parallel display issue.</p></div>
+            </div>
+            <p>The legacy path keeps the same request format and model availability. It changes the separate streaming field name from <code>reasoning</code> to <code>reasoning_content</code>. It does not enable reasoning in a model that does not expose it.</p>
+          </section>
+
+          <section id="verify">
+            <p class="eyebrow">Bounded verification</p>
+            <h2>Use an exact model ID and one small request.</h2>
+            <p>Check NanoGPT’s unauthenticated model endpoint without exposing your key:</p>
+            <pre><code>curl -fsS https://nano-gpt.com/api/v1/models</code></pre>
+            <p>Copy an exact <code>data[].id</code> value. A <code>:thinking</code> suffix works only where that exact model ID or alias exists. NanoGPT explicitly warns that neither <code>:thinking</code> nor older <code>-thinking</code> naming is universal.</p>
+            <p>In Cline, use a small, disposable task and compare normal <code>/api/v1/</code> with <code>/api/v1legacy/</code> only if the narrow symptom applies. A real request is billable. Reasoning tokens count as output tokens, so inspect actual usage rather than assuming a fixed cost.</p>
+          </section>
+
+          <section id="errors">
+            <p class="eyebrow">If it is not a display problem</p>
+            <h2>Separate transport, payment and model errors.</h2>
+            <div class="diagnostic-grid">
+              <div><h3>401 or invalid key</h3><p>Re-enter the key from NanoGPT’s API-key page. Rotate it if it was exposed. A legacy endpoint does not repair authentication.</p></div>
+              <div><h3>402 payment required</h3><p>The account lacks sufficient prepaid balance. Stop retries and decide whether the workflow warrants funding.</p></div>
+              <div><h3>404 or model not found</h3><p>Refresh the live catalogue and copy the exact ID. Do not invent a thinking suffix.</p></div>
+              <div><h3>Connection error</h3><p>Confirm the full base path, including <code>https://</code> and <code>/api/v1/</code>, then check firewall or network restrictions.</p></div>
+              <div><h3>Very short or empty answer</h3><p>Reasoning can consume the output budget. Leave enough room for both reasoning and the final answer rather than assuming the endpoint failed.</p></div>
+              <div><h3>Unexpected agent behaviour</h3><p>A listed model is not proof of strong tool use. Try a model documented for tool calling and keep the test task reversible.</p></div>
+            </div>
+          </section>
+
+          <section id="rollback">
+            <p class="eyebrow">Reversible by design</p>
+            <h2>Return to the normal path or remove the provider.</h2>
+            <p>If the legacy path does not restore visible thinking, return the Base URL to <code>https://nano-gpt.com/api/v1/</code>. Remove the NanoGPT key and provider values from Cline settings if you no longer need them. Revoke the key at NanoGPT if it was disclosed or should no longer be usable.</p>
+          </section>
+
+          <section class="callout" aria-labelledby="choice-heading">
+            <p class="eyebrow">Optional next step</p>
+            <h2 id="choice-heading">The diagnosis is free and ungated.</h2>
+            <p>Create or manage a key through the clean <a href="https://nano-gpt.com/api" target="_blank" rel="noopener">official API page</a>. If the separate website-query discount is useful, the disclosed invitation is below.</p>
+            <a class="button" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Accept the qualifying 5% web-query invitation <span aria-hidden="true">→</span></a>
+          </section>
+
+          <section id="sources">
+            <p class="eyebrow">Method and limits</p>
+            <h2>Primary sources, with a clear test boundary.</h2>
+            <p>This page was checked against NanoGPT’s current <a href="https://docs.nano-gpt.com/integrations/cline" target="_blank" rel="noopener">Cline guide</a> and <a href="https://docs.nano-gpt.com/api-reference/miscellaneous/extended-thinking" target="_blank" rel="noopener">extended-thinking reference</a>, plus Cline’s own <a href="https://docs.cline.bot/provider-config/openai-compatible" target="_blank" rel="noopener">OpenAI Compatible provider guide</a>, on 9 August 2026.</p>
+            <p>The endpoint documentation and public model endpoint were verified. No reusable key was retrieved or entered and no paid inference was made, so this page does not claim an end-to-end model test or personal product experience. Client interfaces, model IDs and response formats can change; the linked first-party pages remain authoritative.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div><a class="brand footer-brand" href="../index.html"><span class="brand-mark" aria-hidden="true"><svg class="pixel-logo" viewBox="0 0 12 14" shape-rendering="crispEdges" aria-hidden="true"><path fill="#74f0c1" d="M4 0h2v2H4zM3 1h1v1H3zM6 1h1v1H6z"/><path fill="#241b36" d="M2 3h8v1H2zM1 4h10v9H1zM1 13h10v1H1z"/><path fill="#b98aff" d="M3 4h6v3H3z"/><path fill="#7a4ff0" d="M3 7h6v3H3z"/><path fill="#62d8ff" d="M3 12h6v1H3z"/></svg></span>ModelGrove</a><p>An independent guide to practical multi-model AI access.</p></div>
+      <div><strong>Verify the facts</strong><a href="https://docs.nano-gpt.com/integrations/cline" target="_blank" rel="noopener">NanoGPT Cline guide</a><a href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Live pricing</a><a href="https://nano-gpt.com/legal/terms-of-service" target="_blank" rel="noopener">Terms of service</a></div>
+      <div><strong>Disclosure</strong><p>Referral links may earn this site credit. NanoGPT does not operate or endorse this independent guide.</p></div>
+    </div>
+    <div class="shell footer-bottom"><span>Last fact-check: 9 August 2026</span><span>No analytics or key collection</span></div>
+  </footer>
+</body>
+</html>

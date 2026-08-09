@@ -129,7 +129,7 @@ class SiteTests(unittest.TestCase):
         self.assertGreaterEqual(self.text.count('class="pixel-mono"'), 6)
         self.assertIn('class="footer-parade"', self.text)
         self.assertGreaterEqual(self.text.count('class="parade-sprite'), 14)
-        for guide in ("nanogpt-codex-cli.html", "nanogpt-claude-code.html"):
+        for guide in ("nanogpt-codex-cli.html", "nanogpt-claude-code.html", "nanogpt-cline-reasoning.html"):
             self.assertIn('class="pixel-logo"', (ROOT / "guides" / guide).read_text(encoding="utf-8"))
 
     def test_motion_is_progressive_and_respects_user_preference(self):
@@ -199,6 +199,17 @@ wire_api = "responses"
         import json
         parsed = json.loads(fixture)
         self.assertEqual(parsed["env"]["ANTHROPIC_BASE_URL"], "https://nano-gpt.com/api/v1")
+
+    def test_cline_guide_is_symptom_led_and_referral_safe(self):
+        guide = (ROOT / "guides" / "nanogpt-cline-reasoning.html").read_text(encoding="utf-8")
+        self.assertIn("missing thinking", guide.lower())
+        self.assertIn("https://nano-gpt.com/api/v1/", guide)
+        self.assertIn("https://nano-gpt.com/api/v1legacy/", guide)
+        self.assertIn("reasoning_content", guide)
+        self.assertIn("No paid inference claimed", guide)
+        self.assertIn('rel="sponsored nofollow noopener"', guide)
+        self.assertIn('rel="canonical" href="https://modelgrove.dev/guides/nanogpt-cline-reasoning.html"', guide)
+        self.assertNotIn("—", guide)
 
 
 if __name__ == "__main__":
