@@ -96,7 +96,7 @@ class SiteTests(unittest.TestCase):
         self.assertGreaterEqual(self.text.count('class="path-card'), 3)
         self.assertIn('class="offer-card', self.text)
         self.assertIn('class="mobile-cta"', self.text)
-        self.assertIn("Referral · 5% qualifying web discount", self.text)
+        self.assertIn("Referral link · 5% qualifying web discount", self.text)
         self.assertIn('src="assets/experience.mjs"', self.text)
 
     def test_homepage_explains_offering_and_keeps_disclosure_proportionate(self):
