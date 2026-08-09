@@ -1,4 +1,5 @@
 import re
+import struct
 import tomllib
 import unittest
 from html.parser import HTMLParser
@@ -85,6 +86,32 @@ class SiteTests(unittest.TestCase):
             },
             redirects,
         )
+
+    def test_homepage_exposes_absolute_large_social_card_metadata(self):
+        image_url = "https://modelgrove.dev/assets/modelgrove-social-card.png"
+        self.assertIn(f'<meta property="og:image" content="{image_url}">', self.text)
+        self.assertIn('<meta property="og:image:width" content="1200">', self.text)
+        self.assertIn('<meta property="og:image:height" content="630">', self.text)
+        self.assertIn('<meta property="og:image:type" content="image/png">', self.text)
+        self.assertIn('<meta property="og:image:alt"', self.text)
+        self.assertIn('<meta name="twitter:card" content="summary_large_image">', self.text)
+        self.assertIn(f'<meta name="twitter:image" content="{image_url}">', self.text)
+        self.assertIn('<meta name="twitter:image:alt"', self.text)
+
+    def test_social_card_and_avatar_have_platform_safe_dimensions(self):
+        expected = {
+            ROOT / "assets" / "modelgrove-social-card.png": (1200, 630),
+            ROOT / "assets" / "modelgrove-avatar.png": (1024, 1024),
+        }
+        for path, dimensions in expected.items():
+            with path.open("rb") as image:
+                self.assertEqual(image.read(8), b"\x89PNG\r\n\x1a\n")
+                length = struct.unpack(">I", image.read(4))[0]
+                self.assertEqual(image.read(4), b"IHDR")
+                width, height = struct.unpack(">II", image.read(8))
+                self.assertGreaterEqual(length, 13)
+            self.assertEqual((width, height), dimensions)
+            self.assertLess(path.stat().st_size, 5_000_000)
 
     def test_homepage_has_story_led_conversion_funnel(self):
         self.assertIn('<body class="home">', self.text)
