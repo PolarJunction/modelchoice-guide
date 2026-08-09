@@ -85,6 +85,33 @@ class SiteTests(unittest.TestCase):
             redirects,
         )
 
+    def test_homepage_has_story_led_conversion_funnel(self):
+        self.assertIn('<body class="home">', self.text)
+        self.assertIn('class="grove-scene"', self.text)
+        self.assertIn('class="portal"', self.text)
+        self.assertGreaterEqual(self.text.count('class="model-spirit'), 4)
+        self.assertIn('class="path-picker"', self.text)
+        self.assertGreaterEqual(self.text.count('class="path-card'), 3)
+        self.assertIn('class="mobile-cta"', self.text)
+        self.assertIn("Referral link · Try with 5% off", self.text)
+        self.assertIn('src="assets/experience.mjs"', self.text)
+
+    def test_motion_is_progressive_and_respects_user_preference(self):
+        script = (ROOT / "assets" / "experience.mjs").read_text(encoding="utf-8")
+        styles = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
+        self.assertIn("IntersectionObserver", script)
+        self.assertIn("prefers-reduced-motion", script)
+        self.assertIn("mobileCta", script)
+        self.assertIn('classList.toggle("is-active"', script)
+        self.assertIn("mobileCta.blur()", script)
+        self.assertIn(".mobile-cta.is-active", styles)
+        self.assertIn("visibility: hidden", styles)
+        self.assertIn("visibility: visible", styles)
+        self.assertNotIn("visibility 0s linear .25s", styles)
+        self.assertIn("@media (prefers-reduced-motion: reduce)", styles)
+        self.assertIn("scroll-behavior: auto", styles)
+        self.assertNotIn("scroll-behaviour", styles)
+
     def test_codex_guide_is_current_and_secret_safe(self):
         guide = (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8")
         escaped = guide.replace('"', '&quot;')

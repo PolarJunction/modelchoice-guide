@@ -3,113 +3,176 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An independent, practical guide to NanoGPT: pricing, integrations, trade-offs and a 5% website-query discount.">
-  <meta name="theme-color" content="#101828">
+  <meta name="description" content="An independent guide to NanoGPT: compare the fit, connect coding tools and get 5% off qualifying website queries.">
+  <meta name="theme-color" content="#050817">
   <link rel="canonical" href="https://modelgrove.dev/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="ModelGrove — One balance for many AI models">
-  <meta property="og:description" content="A candid independent guide to NanoGPT, its integrations and a 5% website-query discount.">
+  <meta property="og:title" content="ModelGrove — A whole grove of AI models. One balance.">
+  <meta property="og:description" content="A candid independent guide to NanoGPT, practical integrations and a 5% website-query discount.">
   <meta property="og:url" content="https://modelgrove.dev/">
   <meta name="twitter:card" content="summary">
-  <title>ModelGrove — One balance for many AI models</title>
+  <title>ModelGrove — A whole grove of AI models. One balance.</title>
   <link rel="stylesheet" href="assets/styles.css">
   <script type="module" src="assets/calculator.mjs"></script>
+  <script type="module" src="assets/experience.mjs"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "ModelGrove",
+    "url": "https://modelgrove.dev/",
     "description": "An independent guide to choosing and using NanoGPT.",
     "inLanguage": "en-GB"
   }
   </script>
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
   <header class="site-header">
     <nav class="nav shell" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="ModelGrove home"><span class="brand-mark" aria-hidden="true">M</span>ModelGrove</a>
+      <a class="brand" href="#top" aria-label="ModelGrove home">
+        <span class="brand-mark" aria-hidden="true"><i></i></span>
+        <span>ModelGrove</span>
+      </a>
       <div class="nav-links">
-        <a href="#fit">Is it for me?</a>
+        <a href="#paths">Find your path</a>
+        <a href="#fit">Fit check</a>
         <a href="#calculator">Savings</a>
-        <a href="#integrations">Integrations</a>
-        <a href="#questions">FAQ</a>
+        <a href="#integrations">Set-up guides</a>
       </div>
-      <a class="button button-small" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Get 5% off</a>
+      <a class="button button-small" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Try with 5% off <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero shell" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow">Advertisement <span aria-hidden="true">·</span> referral link</p>
-        <h1>Stop opening a new account for every AI model.</h1>
-        <p class="lede">NanoGPT puts text, image, video and audio models behind one prepaid balance and API. This guide explains the useful bits, the catches and the integrations worth trying.</p>
-        <div class="hero-actions">
-          <a class="button" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Claim 5% off website queries <span aria-hidden="true">→</span></a>
-          <a class="text-link" href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Check live pricing</a>
+    <section class="hero" id="top">
+      <div class="hero-aurora" aria-hidden="true"></div>
+      <div class="hero-grid shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-pulse" aria-hidden="true"></span>Advertisement · referral link</p>
+          <h1>A whole grove of AI models. <em>One balance.</em></h1>
+          <p class="lede">Explore text, image, video and audio models without opening another provider account every time curiosity strikes.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Start with 5% off web queries <span class="button-arrow" aria-hidden="true">→</span></a>
+            <a class="text-link" href="#paths">Find your path <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="microcopy"><strong>Clear referral disclosure:</strong> you currently receive 5% off qualifying NanoGPT website queries. This independent site may receive platform credit after a qualifying purchase. Terms can change.</p>
+          <div class="hero-proof">
+            <span><b aria-hidden="true">◆</b> Prepaid</span>
+            <span><b aria-hidden="true">◆</b> OpenAI-compatible</span>
+            <span><b aria-hidden="true">◆</b> Low minimum deposit</span>
+          </div>
         </div>
-        <p class="microcopy"><strong>Referral disclosure:</strong> you currently receive 5% off NanoGPT website queries; I may receive platform credit after a qualifying purchase. Terms and rewards can change. The invitation is active with no expiry. NanoGPT states minimum deposits of $0.10 by crypto or $1 by card.</p>
+
+        <div class="grove-scene" aria-hidden="true">
+          <div class="moon"></div>
+          <div class="stars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="tree tree-one"><i></i><i></i><i></i></div>
+          <div class="tree tree-two"><i></i><i></i><i></i></div>
+          <div class="tree tree-three"><i></i><i></i><i></i></div>
+          <div class="portal"><span></span></div>
+          <div class="stone-path"></div>
+          <div class="model-spirit spirit-ember"><i></i></div>
+          <div class="model-spirit spirit-sprout"><i></i><b></b></div>
+          <div class="model-spirit spirit-crystal"><i></i></div>
+          <div class="model-spirit spirit-cube"><i></i></div>
+          <div class="model-spirit spirit-guide"><i></i><b></b></div>
+          <div class="fireflies"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="scene-caption"><span>Many models</span><i></i><span>One route</span></div>
+        </div>
       </div>
-      <aside class="decision-card" aria-label="NanoGPT at a glance">
-        <div class="card-topline"><span class="status-dot" aria-hidden="true"></span>At a glance</div>
-        <dl>
-          <div><dt>Billing</dt><dd>Pay as you go</dd></div>
-          <div><dt>Text pricing</dt><dd>Provider list price*</dd></div>
-          <div><dt>Subscription</dt><dd>Personal, $12/month</dd></div>
-          <div><dt>Invite benefit</dt><dd>5% off web queries</dd></div>
-        </dl>
-        <p class="fineprint">*NanoGPT documents opt-in exceptions, including provider pinning and BYOK. Always check the live price before a large run.</p>
-      </aside>
+      <a class="scroll-cue" href="#paths" aria-label="Continue to choose your path"><span></span>Choose a path</a>
     </section>
 
-    <section class="trust-strip" aria-label="Key capabilities">
-      <div class="shell trust-grid">
-        <div><strong>One balance</strong><span>Across model families</span></div>
-        <div><strong>OpenAI-compatible</strong><span>Fits many existing tools</span></div>
-        <div><strong>Low minimum</strong><span>Try it without a large deposit</span></div>
-        <div><strong>No expiry</strong><span>On this invitation link</span></div>
+    <section class="path-section section" id="paths">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Three ways into the grove</p>
+          <h2>What brought you here?</h2>
+          <p>Skip the generic tour. Take the route that answers your question fastest.</p>
+        </div>
+        <div class="path-picker">
+          <a class="path-card path-compare reveal" href="#fit">
+            <span class="path-number">01</span>
+            <span class="path-orbit" aria-hidden="true"><i></i></span>
+            <span class="path-copy"><strong>Should I use it?</strong><small>Get the candid fit check, including reasons not to.</small></span>
+            <span class="path-arrow" aria-hidden="true">↘</span>
+          </a>
+          <a class="path-card path-build reveal" href="#integrations">
+            <span class="path-number">02</span>
+            <span class="path-code" aria-hidden="true">&gt;_</span>
+            <span class="path-copy"><strong>I want to connect a tool</strong><small>Start with Codex CLI, Claude Code or your existing interface.</small></span>
+            <span class="path-arrow" aria-hidden="true">↘</span>
+          </a>
+          <a class="path-card path-save reveal" href="#calculator">
+            <span class="path-number">03</span>
+            <span class="path-spark" aria-hidden="true">✦</span>
+            <span class="path-copy"><strong>What will 5% save?</strong><small>Use a local calculator with no tracking or sign-up.</small></span>
+            <span class="path-arrow" aria-hidden="true">↘</span>
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="section shell" id="fit">
-      <div class="section-heading">
-        <p class="eyebrow">A candid fit check</p>
-        <h2>Useful flexibility, not magic.</h2>
-        <p>NanoGPT is strongest when provider choice itself has value. It is less compelling when you already know exactly which single provider you need.</p>
-      </div>
-      <div class="fit-grid">
-        <article class="fit-card good">
-          <p class="card-label">Good fit</p>
-          <h3>You switch models or tools often</h3>
-          <ul>
-            <li>You want to compare model behaviour without funding several accounts.</li>
-            <li>You use coding agents, local chat frontends or automation tools.</li>
-            <li>You need occasional image, video, audio or data APIs alongside text.</li>
-            <li>You prefer prepaid usage over another recurring commitment.</li>
-          </ul>
-        </article>
-        <article class="fit-card caution">
-          <p class="card-label">Think twice</p>
-          <h3>You need one fixed provider</h3>
-          <ul>
-            <li>Direct billing, enterprise support or a provider contract matters more than choice.</li>
-            <li>You expect the 5% invitation discount to apply to API traffic; the invitation specifies website queries.</li>
-            <li>You need guaranteed availability for a particular upstream model or route.</li>
-            <li>You need commercial use from the subscription; its terms specify personal, non-commercial use.</li>
-          </ul>
-        </article>
+    <section class="capability-ribbon" aria-label="Available model categories">
+      <div class="ribbon-track">
+        <span>Text models</span><i>✦</i><span>Image models</span><i>✦</i><span>Video models</span><i>✦</i><span>Audio models</span><i>✦</i><span>Coding agents</span><i>✦</i><span>Automation</span><i>✦</i>
+        <span aria-hidden="true">Text models</span><i aria-hidden="true">✦</i><span aria-hidden="true">Image models</span><i aria-hidden="true">✦</i><span aria-hidden="true">Video models</span><i aria-hidden="true">✦</i><span aria-hidden="true">Audio models</span><i aria-hidden="true">✦</i><span aria-hidden="true">Coding agents</span><i aria-hidden="true">✦</i><span aria-hidden="true">Automation</span><i aria-hidden="true">✦</i>
       </div>
     </section>
 
-    <section class="section section-tint" id="calculator">
+    <section class="section fit-section" id="fit">
+      <div class="shell fit-layout">
+        <div class="section-heading fit-intro reveal">
+          <p class="eyebrow">A candid fit check</p>
+          <h2>Useful flexibility. <em>No magic.</em></h2>
+          <p>NanoGPT is strongest when provider choice itself has value. If you already know the one provider you need, going direct may be simpler.</p>
+          <a class="text-link" href="#questions">Read the awkward questions →</a>
+        </div>
+        <div class="fit-cards">
+          <article class="fit-card good reveal">
+            <div class="card-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="card-label">The trail is clear</p>
+            <h3>Good fit if you switch often</h3>
+            <ul>
+              <li>Compare model behaviour without funding several accounts.</li>
+              <li>Use coding agents, local chat frontends or automations.</li>
+              <li>Need occasional image, video or audio APIs beside text.</li>
+              <li>Prefer prepaid usage to another monthly commitment.</li>
+            </ul>
+          </article>
+          <article class="fit-card caution reveal">
+            <div class="card-signal caution-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="card-label">Pause at the fork</p>
+            <h3>Think twice if certainty matters</h3>
+            <ul>
+              <li>Direct billing or enterprise support matters more than choice.</li>
+              <li>You expect the 5% web-query discount to cover API traffic.</li>
+              <li>You need guaranteed availability from one upstream route.</li>
+              <li>You need commercial use from the personal subscription.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calculator-section" id="calculator">
+      <div class="calculator-glow" aria-hidden="true"></div>
       <div class="shell calculator-layout">
-        <div class="section-heading compact">
-          <p class="eyebrow">Discount calculator</p>
+        <div class="section-heading compact reveal">
+          <p class="eyebrow">Make the discount tangible</p>
           <h2>What does 5% actually save?</h2>
-          <p>Enter your expected monthly spend on NanoGPT’s website. This calculator does not assume the discount covers API usage.</p>
+          <p>Enter expected monthly spend on NanoGPT’s website. The calculation stays in your browser and does not assume an API discount.</p>
+          <div class="fact-stack">
+            <span><b>5%</b> qualifying web-query discount</span>
+            <span><b>$0.10</b> stated crypto deposit minimum</span>
+            <span><b>$1</b> stated card deposit minimum</span>
+          </div>
         </div>
-        <div class="calculator-card">
+        <div class="calculator-card reveal">
+          <div class="calculator-topline"><span>Private local calculator</span><span class="live-dot"><i></i>Ready</span></div>
           <label for="monthly-spend">Expected monthly web-chat spend</label>
           <div class="currency-input"><span aria-hidden="true">$</span><input id="monthly-spend" type="number" min="0" max="100000" step="0.01" value="20" inputmode="decimal"></div>
           <div class="result-grid" aria-live="polite">
@@ -117,63 +180,87 @@
             <div><span>Annual saving</span><strong id="annual-saving">$12.00</strong></div>
             <div><span>You pay monthly</span><strong id="discounted-total">$19.00</strong></div>
           </div>
-          <p class="fineprint">Illustrative arithmetic only. Actual eligibility, billing and prices are controlled by NanoGPT.</p>
+          <a class="button button-primary button-wide" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Use the 5% invitation <span aria-hidden="true">→</span></a>
+          <p class="fineprint">Illustrative arithmetic only. Eligibility, billing and prices are controlled by NanoGPT.</p>
         </div>
       </div>
     </section>
 
-    <section class="section shell" id="integrations">
-      <div class="section-heading">
-        <p class="eyebrow">Bring your own interface</p>
-        <h2>Use the tool you already like.</h2>
-        <p>NanoGPT publishes setup guides for coding agents, chat frontends and automation tools. These are some of the highest-value starting points.</p>
+    <section class="section integrations-section" id="integrations">
+      <div class="shell">
+        <div class="section-heading integrations-heading reveal">
+          <div><p class="eyebrow">Bring your own interface</p><h2>Keep the tool. Change the route.</h2></div>
+          <p>NanoGPT can sit behind coding agents, chat frontends and automations. Start with a set-up guide that matches what you already use.</p>
+        </div>
+        <div class="integration-grid">
+          <a class="integration-card integration-feature reveal" href="guides/nanogpt-codex-cli.html">
+            <span class="integration-icon">CX</span><div><p class="integration-tag">Independent guide</p><h3>Codex CLI</h3><p>Use the current Responses config, diagnose errors and roll back safely.</p></div><span class="integration-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="integration-card reveal" href="guides/nanogpt-claude-code.html">
+            <span class="integration-icon">CC</span><div><p class="integration-tag">Independent guide</p><h3>Claude Code</h3><p>Choose provider mode, MCP tools or both without conflating them.</p></div><span class="integration-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="integration-card reveal" href="https://docs.nano-gpt.com/integrations/fluent" target="_blank" rel="noopener">
+            <span class="integration-icon">F</span><div><p class="integration-tag">Official docs</p><h3>Fluent</h3><p>Use NanoGPT models and MCP tools in Fluent for macOS.</p></div><span class="integration-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="integration-card reveal" href="https://docs.nano-gpt.com/integrations/opencode" target="_blank" rel="noopener">
+            <span class="integration-icon">OC</span><div><p class="integration-tag">Official docs</p><h3>OpenCode</h3><p>Configure NanoGPT as a provider from your terminal.</p></div><span class="integration-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="integration-card reveal" href="https://docs.nano-gpt.com/integrations/openwebui" target="_blank" rel="noopener">
+            <span class="integration-icon">OW</span><div><p class="integration-tag">Official docs</p><h3>OpenWebUI</h3><p>Add an OpenAI-compatible connection to a self-hosted chat UI.</p></div><span class="integration-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="integration-card reveal" href="https://docs.nano-gpt.com/integrations/n8n" target="_blank" rel="noopener">
+            <span class="integration-icon">n8n</span><div><p class="integration-tag">Official docs</p><h3>n8n</h3><p>Use NanoGPT from familiar OpenAI automation nodes.</p></div><span class="integration-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <p class="centre"><a class="text-link" href="https://docs.nano-gpt.com/integrations" target="_blank" rel="noopener">Explore every official integration guide →</a></p>
       </div>
-      <div class="integration-grid">
-        <a class="integration-card" href="https://docs.nano-gpt.com/integrations/fluent" target="_blank" rel="noopener"><span class="integration-icon">F</span><div><h3>Fluent</h3><p>Use NanoGPT models and MCP tools in Fluent for macOS.</p></div><span aria-hidden="true">↗</span></a>
-        <a class="integration-card" href="guides/nanogpt-claude-code.html"><span class="integration-icon">CC</span><div><h3>Claude Code</h3><p>Choose model-provider mode, MCP tools or both without conflating them.</p></div><span aria-hidden="true">→</span></a>
-        <a class="integration-card" href="guides/nanogpt-codex-cli.html"><span class="integration-icon">CX</span><div><h3>Codex CLI</h3><p>Use the current Responses config, diagnose errors and roll back safely.</p></div><span aria-hidden="true">→</span></a>
-        <a class="integration-card" href="https://docs.nano-gpt.com/integrations/opencode" target="_blank" rel="noopener"><span class="integration-icon">OC</span><div><h3>OpenCode</h3><p>Configure NanoGPT as a provider from your terminal.</p></div><span aria-hidden="true">↗</span></a>
-        <a class="integration-card" href="https://docs.nano-gpt.com/integrations/openwebui" target="_blank" rel="noopener"><span class="integration-icon">OW</span><div><h3>OpenWebUI</h3><p>Add an OpenAI-compatible connection to a self-hosted chat UI.</p></div><span aria-hidden="true">↗</span></a>
-        <a class="integration-card" href="https://docs.nano-gpt.com/integrations/n8n" target="_blank" rel="noopener"><span class="integration-icon">n8n</span><div><h3>n8n</h3><p>Use NanoGPT from familiar OpenAI automation nodes.</p></div><span aria-hidden="true">↗</span></a>
-      </div>
-      <p class="centre"><a class="text-link" href="https://docs.nano-gpt.com/integrations" target="_blank" rel="noopener">See every official integration guide →</a></p>
     </section>
 
-    <section class="section dark-section">
-      <div class="shell dark-grid">
-        <div>
-          <p class="eyebrow light">The short version</p>
-          <h2>Try it when model choice saves more effort than another account costs.</h2>
+    <section class="section questions-section" id="questions">
+      <div class="shell questions-layout">
+        <div class="section-heading compact reveal">
+          <p class="eyebrow">Before you add balance</p>
+          <h2>Good questions have sharp edges.</h2>
+          <p>This guide is here to help you decide, not to hide the catches.</p>
         </div>
-        <div>
-          <p>The low deposit minimum makes a small trial sensible. Test one real workflow, inspect the exact request cost and only then decide whether to move more usage.</p>
-          <a class="button button-light" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Use the 5% invitation <span aria-hidden="true">→</span></a>
+        <div class="faq-list reveal">
+          <details><summary>Does the 5% discount apply to API usage?</summary><p>The invitation page specifically says “queries on our website”. This guide does not claim an API discount. Check NanoGPT’s live terms before relying on broader coverage.</p></details>
+          <details><summary>Is this an official NanoGPT website?</summary><p>No. ModelGrove is independent. Product, pricing and integration links point to NanoGPT’s official pages so you can verify them yourself.</p></details>
+          <details><summary>How does this site make money?</summary><p>If you accept NanoGPT through a referral link here and later make a qualifying purchase, this site may receive referral credit. You receive the stated 5% website-query discount.</p></details>
+          <details><summary>Does this site track me?</summary><p>No analytics, cookies or tracking pixels are installed. A referral click takes you directly to NanoGPT, which applies its own policies.</p></details>
+          <details><summary>Are model availability and prices fixed?</summary><p>No. Model catalogues and upstream routes change. Check NanoGPT’s live pricing and model directory before a material purchase or integration decision.</p></details>
         </div>
       </div>
     </section>
 
-    <section class="section shell" id="questions">
-      <div class="section-heading compact">
-        <p class="eyebrow">Questions worth asking</p>
-        <h2>Before you add balance.</h2>
-      </div>
-      <div class="faq-list">
-        <details><summary>Does the 5% discount apply to API usage?</summary><p>The invitation page specifically says “queries on our website”. This guide does not claim an API discount. Check NanoGPT’s live terms before relying on broader coverage.</p></details>
-        <details><summary>Is this an official NanoGPT website?</summary><p>No. ModelGrove is an independent guide. Product, pricing and integration links point to NanoGPT’s official pages so you can verify them yourself.</p></details>
-        <details><summary>How does this site make money?</summary><p>If you accept NanoGPT through a referral link on this page and later use the service, this site may receive referral credit. You receive the stated 5% website-query discount. The referral relationship does not change the candid fit assessment above.</p></details>
-        <details><summary>Does this site track me?</summary><p>Version one uses no analytics, cookies or tracking pixels. Clicking the referral button takes you directly to NanoGPT, which applies its own policies.</p></details>
-        <details><summary>Are model availability and prices fixed?</summary><p>No. Model catalogues and upstream routes change. Use NanoGPT’s live pricing and model directory before making a material purchase or integration decision.</p></details>
+    <section class="final-cta">
+      <div class="final-stars" aria-hidden="true"></div>
+      <div class="shell final-grid">
+        <div class="final-mark" aria-hidden="true"><span></span><i></i><b></b></div>
+        <div class="reveal">
+          <p class="eyebrow">Your next experiment can be small</p>
+          <h2>Open one gate.<br>Test one real workflow.</h2>
+          <p>The low stated deposit minimum makes a bounded trial sensible. Inspect the exact request cost before moving more usage.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Try NanoGPT with 5% off <span aria-hidden="true">→</span></a>
+            <a class="text-link" href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Check live pricing ↗</a>
+          </div>
+          <p class="microcopy">Referral links may earn this independent site platform credit. NanoGPT does not operate or endorse ModelGrove.</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="shell footer-grid">
-      <div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">M</span>ModelGrove</a><p>An independent guide to practical multi-model AI access.</p></div>
-      <div><strong>Verify the facts</strong><a href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Live pricing</a><a href="https://nano-gpt.com/legal/terms-of-service" target="_blank" rel="noopener">Terms of service</a><a href="https://docs.nano-gpt.com" target="_blank" rel="noopener">Official documentation</a><a href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Referral invitation</a></div>
-      <div><strong>Disclosure</strong><p>Referral links may earn this site credit. NanoGPT does not operate or endorse this independent guide.</p></div>
+      <div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i></span><span>ModelGrove</span></a><p>An independent field guide to practical multi-model AI access.</p></div>
+      <div><strong>Explore</strong><a href="#fit">Fit check</a><a href="#calculator">Savings</a><a href="#integrations">Set-up guides</a><a href="#questions">FAQ</a></div>
+      <div><strong>Verify the facts</strong><a href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Live pricing</a><a href="https://nano-gpt.com/legal/terms-of-service" target="_blank" rel="noopener">Terms of service</a><a href="https://docs.nano-gpt.com" target="_blank" rel="noopener">Official documentation</a></div>
+      <div><strong>Disclosure</strong><p>Referral links may earn this site credit. NanoGPT does not operate or endorse this guide.</p></div>
     </div>
-    <div class="shell footer-bottom"><span>Last fact-check: 9 August 2026</span><span>No analytics in version one</span></div>
+    <div class="shell footer-bottom"><span>Last fact-check: 9 August 2026</span><span>No analytics or tracking pixels</span></div>
   </footer>
+
+  <a class="mobile-cta" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener"><span>Referral link · Try with 5% off</span><b aria-hidden="true">→</b></a>
 </body>
 </html>
