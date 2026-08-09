@@ -118,6 +118,16 @@ class SiteTests(unittest.TestCase):
         self.assertIn("scroll-behavior: auto", styles)
         self.assertNotIn("scroll-behaviour", styles)
 
+    def test_responsive_hero_avoids_overflow_prone_layout(self):
+        styles = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
+        self.assertNotIn("minmax(520px", styles)
+        self.assertNotIn("margin: -100px -90px", styles)
+        self.assertNotIn("width: 133%", styles)
+        self.assertIn("@media (max-width: 1100px)", styles)
+        self.assertIn("@media (max-width: 800px)", styles)
+        self.assertIn(".hero-copy .button", styles)
+        self.assertIn("white-space: nowrap", styles)
+
     def test_codex_guide_is_current_and_secret_safe(self):
         guide = (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8")
         escaped = guide.replace('"', '&quot;')
