@@ -3,6 +3,7 @@ import tomllib
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "index.html"
@@ -46,7 +47,7 @@ class SiteTests(unittest.TestCase):
                 local.append(value)
         self.assertTrue(local)
         for value in local:
-            self.assertTrue((ROOT / value).is_file(), value)
+            self.assertTrue((ROOT / urlsplit(value).path).is_file(), value)
 
     def test_no_secrets_or_analytics(self):
         forbidden = ["NOVA_" + "NANOGPT_API_KEY", "x-" + "api-key", "google-analytics", "plausible.io", "posthog"]
@@ -95,7 +96,7 @@ class SiteTests(unittest.TestCase):
         self.assertGreaterEqual(self.text.count('class="path-card'), 3)
         self.assertIn('class="offer-card', self.text)
         self.assertIn('class="mobile-cta"', self.text)
-        self.assertIn("Step inside · 5% off", self.text)
+        self.assertIn("Referral link · 5% off web queries", self.text)
         self.assertIn('src="assets/experience.mjs"', self.text)
 
     def test_homepage_explains_offering_and_keeps_disclosure_proportionate(self):
@@ -106,6 +107,10 @@ class SiteTests(unittest.TestCase):
         # placement rather than shouted in the hero eyebrow.
         self.assertNotIn("Advertisement", self.text)
         self.assertIn("Referral link", self.text)
+        self.assertIn("No subscription required", self.text)
+        self.assertIn("$0.10 with crypto or $1 by card", self.text)
+        self.assertNotIn("No subscriptions", self.text)
+        self.assertNotIn("$0.10 by card or crypto", self.text)
         self.assertIn("How does this site make money?", self.text)
 
     def test_no_em_dashes_in_public_copy(self):
