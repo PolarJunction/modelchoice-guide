@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HTML = ROOT / "index.html"
 REFERRAL = "https://nano-gpt.com/r/MRpqWxhj"
+CANONICAL = "https://modelgrove.dev/"
 
 
 class LinkParser(HTMLParser):
@@ -58,6 +59,30 @@ class SiteTests(unittest.TestCase):
         self.assertIn('id="main"', self.text)
         self.assertIn('aria-live="polite"', self.text)
         self.assertEqual(self.text.count("<h1>"), 1)
+
+    def test_modelgrove_brand_and_canonical_domain(self):
+        public_files = [
+            self.text,
+            (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8"),
+            (ROOT / "robots.txt").read_text(encoding="utf-8"),
+            (ROOT / "sitemap.xml").read_text(encoding="utf-8"),
+        ]
+        joined = "\n".join(public_files)
+        self.assertIn("ModelGrove", joined)
+        self.assertIn(CANONICAL, joined)
+        self.assertNotIn("ModelChoice", joined)
+        self.assertNotIn("modelchoice-guide.netlify.app", joined)
+        netlify = tomllib.loads((ROOT / "netlify.toml").read_text(encoding="utf-8"))
+        redirects = netlify.get("redirects", [])
+        self.assertIn(
+            {
+                "from": "https://modelchoice-guide.netlify.app/*",
+                "to": "https://modelgrove.dev/:splat",
+                "status": 301,
+                "force": True,
+            },
+            redirects,
+        )
 
     def test_codex_guide_is_current_and_secret_safe(self):
         guide = (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8")

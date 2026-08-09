@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://modelchoice-guide.netlify.app/sitemap.xml
+Sitemap: https://modelgrove.dev/sitemap.xml

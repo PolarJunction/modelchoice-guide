@@ -1,4 +1,4 @@
-# ModelChoice
+# ModelGrove
 
 An independent, practical guide to NanoGPT's multi-model service, integrations and trade-offs.
 
