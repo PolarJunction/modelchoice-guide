@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose between NanoGPT as Claude Code's model provider and NanoGPT's separate MCP tools, with safe setup, verification and rollback steps.">
+  <meta name="theme-color" content="#101828">
+  <link rel="canonical" href="https://modelgrove.dev/guides/nanogpt-claude-code.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="NanoGPT with Claude Code: model provider or MCP tools?">
+  <meta property="og:description" content="An independent guide to two distinct NanoGPT integrations for Claude Code.">
+  <meta property="og:url" content="https://modelgrove.dev/guides/nanogpt-claude-code.html">
+  <meta name="twitter:card" content="summary">
+  <title>NanoGPT with Claude Code: model provider vs MCP | ModelGrove</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "NanoGPT with Claude Code: model provider or MCP tools?",
+    "datePublished": "2026-08-09",
+    "dateModified": "2026-08-09",
+    "author": {"@type": "Person", "name": "Nova"},
+    "publisher": {"@type": "Organization", "name": "ModelGrove"},
+    "description": "Choose and configure either of NanoGPT's two distinct Claude Code integrations.",
+    "mainEntityOfPage": "https://modelgrove.dev/guides/nanogpt-claude-code.html"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="ModelGrove home"><span class="brand-mark" aria-hidden="true">M</span>ModelGrove</a>
+      <div class="nav-links">
+        <a href="#choose">Choose</a>
+        <a href="#provider">Provider setup</a>
+        <a href="#mcp">MCP setup</a>
+        <a href="#rollback">Rollback</a>
+      </div>
+      <a class="button button-small" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Get 5% off web queries</a>
+    </nav>
+  </header>
+
+  <main id="main" class="article-main">
+    <article>
+      <header class="article-hero shell">
+        <p class="eyebrow">Advertisement <span aria-hidden="true">·</span> independent setup guide</p>
+        <h1>NanoGPT with Claude Code: model provider or MCP tools?</h1>
+        <p class="lede">These integrations solve different jobs. Provider mode routes Claude Code’s model requests through NanoGPT’s Anthropic-compatible API. The MCP server adds optional NanoGPT tools; it does not switch the model powering Claude Code.</p>
+        <p class="microcopy"><strong>Referral disclosure:</strong> the NanoGPT invitation links on this page give you 5% off queries on NanoGPT’s website; they do not claim an API discount. This site may receive platform credit after a qualifying purchase. Terms can change.</p>
+        <div class="article-meta"><span>Fact-checked 9 August 2026</span><span>JSON fixture parsed with Python 3.11</span><span>No paid inference claimed</span></div>
+      </header>
+
+      <div class="article-layout shell">
+        <aside class="article-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#choose">Choose the right path</a>
+          <a href="#before">Back up and install</a>
+          <a href="#provider">Configure provider mode</a>
+          <a href="#verify">Verify provider mode</a>
+          <a href="#mcp">Add MCP tools</a>
+          <a href="#troubleshoot">Troubleshoot</a>
+          <a href="#rollback">Rollback</a>
+          <a href="#sources">Sources and limits</a>
+        </aside>
+
+        <div class="article-content">
+          <section id="choose" class="callout important">
+            <h2>Choose before you configure.</h2>
+            <div class="diagnostic-grid">
+              <div><h3>Use provider mode when…</h3><p>You want NanoGPT to handle the model calls that power Claude Code. This sets <code>ANTHROPIC_BASE_URL</code> and <code>ANTHROPIC_AUTH_TOKEN</code>.</p></div>
+              <div><h3>Use MCP when…</h3><p>You want callable tools such as NanoGPT balance, model listing, image generation, web search or URL scraping. MCP can be added without changing the model provider.</p></div>
+            </div>
+            <p>You can use both, but configure and verify them separately. Each billable NanoGPT request uses your NanoGPT balance; accepting a referral does not provide prepaid API credit.</p>
+          </section>
+
+          <section id="before">
+            <p class="eyebrow">Before either path</p>
+            <h2>Back up user settings and check the runtime.</h2>
+            <pre><code>mkdir -p ~/.claude
+if [ -f ~/.claude/settings.json ]; then
+  cp ~/.claude/settings.json ~/.claude/settings.json.before-nanogpt
+fi
+node --version
+npm install -g @anthropic-ai/claude-code
+claude --version</code></pre>
+            <p>NanoGPT’s current Claude Code guide requires Node.js 18 or newer. Its separate MCP package requires Node.js 22 or newer. Prefer a version manager or user-writable npm prefix over a privileged global install.</p>
+          </section>
+
+          <section id="provider">
+            <p class="eyebrow">Path A · model provider</p>
+            <h2>Try the provider in one shell first.</h2>
+            <p>This reversible test keeps the key out of project files and out of the command itself. Enter the key silently when prompted:</p>
+            <pre><code>read -rsp "NanoGPT API key: " ANTHROPIC_AUTH_TOKEN; echo
+export ANTHROPIC_AUTH_TOKEN
+export ANTHROPIC_BASE_URL="https://nano-gpt.com/api/v1"
+claude</code></pre>
+            <p>Do not put a reusable key in a repository, screenshot, URL or copied diagnostic output. A real Claude Code prompt is billable.</p>
+            <h3>Optional persistent user configuration</h3>
+            <p>NanoGPT documents the following user-level <code>~/.claude/settings.json</code> shape. It stores the token on disk, so restrict the file and use only a personal machine you trust. Merge the <code>env</code> object into existing settings rather than erasing permissions or other configuration.</p>
+            <pre><code>{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "paste-your-key-locally",
+    "ANTHROPIC_BASE_URL": "https://nano-gpt.com/api/v1"
+  }
+}</code></pre>
+            <pre><code>chmod 600 ~/.claude/settings.json
+python3 -c 'import json,pathlib; json.loads(pathlib.Path.home().joinpath(".claude/settings.json").read_text()); print("JSON is valid")'</code></pre>
+            <p>NanoGPT also provides an installer with browser-based login. If you use it, download and inspect the script before running it rather than piping an unseen network response directly to a shell.</p>
+          </section>
+
+          <section id="verify">
+            <p class="eyebrow">Provider check</p>
+            <h2>Verify routing without printing the token.</h2>
+            <pre><code>python3 -c 'import os; print("NanoGPT base URL set" if os.getenv("ANTHROPIC_BASE_URL") == "https://nano-gpt.com/api/v1" else "Base URL missing or different")'
+python3 -c 'import os; print("Auth token set" if os.getenv("ANTHROPIC_AUTH_TOKEN") else "Auth token missing")'</code></pre>
+            <p>Start Claude Code, approve the API-key prompt if shown, then run <code>/status</code>. NanoGPT and Anthropic both document <code>/status</code> as the place to inspect the active model configuration. Use <code>GET /api/v1/models</code> for current callable IDs rather than copying a static model list.</p>
+          </section>
+
+          <section id="mcp">
+            <p class="eyebrow">Path B · optional tools</p>
+            <h2>Add MCP only when you need its tools.</h2>
+            <p>NanoGPT’s MCP server is a local stdio process that calls NanoGPT’s remote API. It is not local inference, and its tools can incur API costs.</p>
+            <pre><code>read -rsp "NanoGPT API key: " NANOGPT_API_KEY; echo
+claude mcp add nanogpt --scope user \
+  --env NANOGPT_API_KEY="$NANOGPT_API_KEY" \
+  -- npx -y @nanogpt/mcp
+unset NANOGPT_API_KEY
+claude mcp list</code></pre>
+            <p>The command stores the MCP environment configuration at user scope. Review that scope before using a shared machine. On native Windows, follow NanoGPT’s current MCP guide: it uses <code>cmd /c</code> with <code>npx.cmd</code> rather than the Unix command above.</p>
+          </section>
+
+          <section id="troubleshoot">
+            <p class="eyebrow">Diagnostic path</p>
+            <h2>Identify which integration failed.</h2>
+            <div class="diagnostic-grid">
+              <div><h3>Claude Code uses the wrong provider</h3><p>Check <code>/status</code>, close every Claude Code process and start it from a fresh terminal. Validate JSON before changing anything else.</p></div>
+              <div><h3>401 or authentication error</h3><p>Confirm the relevant variable exists without printing it. Provider mode uses <code>ANTHROPIC_AUTH_TOKEN</code>; the MCP launcher uses <code>NANOGPT_API_KEY</code>.</p></div>
+              <div><h3>Unknown model</h3><p>Refresh <code>https://nano-gpt.com/api/v1/models</code> and use an exact current ID. Availability and compatibility change.</p></div>
+              <div><h3>MCP says the key is invalid</h3><p>If provider calls work, inspect the MCP launch command. On Windows, NanoGPT says a missing <code>cmd /c</code> wrapper can surface as an apparent key error.</p></div>
+              <div><h3>MCP is absent</h3><p>Run <code>claude mcp list</code>, confirm Node 22 or newer, and restart Claude Code. Do not alter provider settings to fix an MCP registration problem.</p></div>
+              <div><h3>Insufficient balance</h3><p>Stop retries and inspect NanoGPT usage and balance. Provider calls and MCP tools can both be billable; the website-query referral discount is not claimed for API use.</p></div>
+            </div>
+          </section>
+
+          <section id="rollback">
+            <p class="eyebrow">Reversible by design</p>
+            <h2>Remove only the path you added.</h2>
+            <p>For the shell-only provider test, close Claude Code and clear the variables:</p>
+            <pre><code>unset ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL</code></pre>
+            <p>If you changed user settings and made the backup above, restore it. Remove the MCP server separately:</p>
+            <pre><code>if [ -f ~/.claude/settings.json.before-nanogpt ]; then
+  mv ~/.claude/settings.json.before-nanogpt ~/.claude/settings.json
+fi
+claude mcp remove nanogpt --scope user</code></pre>
+            <p>Removing local configuration does not revoke a key. Revoke it in NanoGPT’s API-key page if it was exposed or is no longer needed.</p>
+          </section>
+
+          <section class="callout" aria-labelledby="choice-heading">
+            <p class="eyebrow">Optional account step</p>
+            <h2 id="choice-heading">The technical guide is not gated.</h2>
+            <p>Create or manage an API key on NanoGPT’s clean <a href="https://nano-gpt.com/api" target="_blank" rel="noopener">official API page</a>. If the separate website-query discount is useful, the disclosed invitation is below.</p>
+            <a class="button" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Accept the 5% web-query invitation <span aria-hidden="true">→</span></a>
+          </section>
+
+          <section id="sources">
+            <p class="eyebrow">Method and limits</p>
+            <h2>Primary sources, with a clear test boundary.</h2>
+            <p>This page was checked against NanoGPT’s current <a href="https://docs.nano-gpt.com/integrations/claude-code" target="_blank" rel="noopener">Claude Code guide</a>, <a href="https://docs.nano-gpt.com/integrations/mcp" target="_blank" rel="noopener">MCP guide</a> and <a href="https://docs.nano-gpt.com/api-reference/endpoint/messages" target="_blank" rel="noopener">Messages API reference</a>, plus Anthropic’s <a href="https://docs.anthropic.com/en/docs/claude-code/settings" target="_blank" rel="noopener">settings</a> and <a href="https://docs.anthropic.com/en/docs/claude-code/model-config" target="_blank" rel="noopener">model configuration</a> documentation on 9 August 2026.</p>
+            <p>The published JSON fixture was parsed successfully. No reusable key was entered and no paid model or MCP request was made, so this guide does not claim end-to-end product experience, feature parity or a benchmark. The linked first-party pages remain authoritative.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div><a class="brand footer-brand" href="../index.html"><span class="brand-mark" aria-hidden="true">M</span>ModelGrove</a><p>An independent guide to practical multi-model AI access.</p></div>
+      <div><strong>Verify the facts</strong><a href="https://docs.nano-gpt.com/integrations/claude-code" target="_blank" rel="noopener">NanoGPT Claude Code guide</a><a href="https://docs.nano-gpt.com/integrations/mcp" target="_blank" rel="noopener">NanoGPT MCP guide</a><a href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Live pricing</a></div>
+      <div><strong>Disclosure</strong><p>Referral links may earn this site credit. NanoGPT does not operate or endorse this independent guide.</p></div>
+    </div>
+    <div class="shell footer-bottom"><span>Last fact-check: 9 August 2026</span><span>No analytics or key collection</span></div>
+  </footer>
+</body>
+</html>

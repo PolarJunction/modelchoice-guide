@@ -19,3 +19,4 @@ Product and pricing claims were last checked against first-party NanoGPT pages o
 ## Guides
 
 - [`guides/nanogpt-codex-cli.html`](guides/nanogpt-codex-cli.html) — current Responses API configuration, secret-safe checks, troubleshooting and rollback.
+- [`guides/nanogpt-claude-code.html`](guides/nanogpt-claude-code.html) — model-provider versus MCP decision guide, separate setup paths, verification and rollback.

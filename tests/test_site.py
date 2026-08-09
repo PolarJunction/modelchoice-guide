@@ -64,6 +64,7 @@ class SiteTests(unittest.TestCase):
         public_files = [
             self.text,
             (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8"),
+            (ROOT / "guides" / "nanogpt-claude-code.html").read_text(encoding="utf-8"),
             (ROOT / "robots.txt").read_text(encoding="utf-8"),
             (ROOT / "sitemap.xml").read_text(encoding="utf-8"),
         ]
@@ -101,6 +102,24 @@ wire_api = "responses"
 '''
         parsed = tomllib.loads(fixture)
         self.assertEqual(parsed["model_providers"]["nanogpt"]["wire_api"], "responses")
+
+    def test_claude_code_guide_separates_provider_and_mcp(self):
+        guide = (ROOT / "guides" / "nanogpt-claude-code.html").read_text(encoding="utf-8")
+        self.assertIn("model provider or MCP tools?", guide)
+        self.assertIn("it does not switch the model powering Claude Code", guide)
+        self.assertIn("ANTHROPIC_AUTH_TOKEN", guide)
+        self.assertIn("NANOGPT_API_KEY", guide)
+        self.assertIn("No paid inference claimed", guide)
+        self.assertIn('rel="sponsored nofollow noopener"', guide)
+        fixture = '''{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "paste-your-key-locally",
+    "ANTHROPIC_BASE_URL": "https://nano-gpt.com/api/v1"
+  }
+}'''
+        import json
+        parsed = json.loads(fixture)
+        self.assertEqual(parsed["env"]["ANTHROPIC_BASE_URL"], "https://nano-gpt.com/api/v1")
 
 
 if __name__ == "__main__":
