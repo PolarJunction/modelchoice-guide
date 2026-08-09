@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configure NanoGPT as a Codex CLI model provider with the current Responses API setting, safe key handling, rollback steps and focused troubleshooting.">
+  <meta name="theme-color" content="#101828">
+  <link rel="canonical" href="https://modelchoice-guide.netlify.app/guides/nanogpt-codex-cli.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="NanoGPT with Codex CLI: current Responses configuration">
+  <meta property="og:description" content="A concise, independent setup and migration guide for NanoGPT and Codex CLI.">
+  <meta property="og:url" content="https://modelchoice-guide.netlify.app/guides/nanogpt-codex-cli.html">
+  <meta name="twitter:card" content="summary">
+  <title>NanoGPT with Codex CLI: Responses setup and migration | ModelChoice</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "NanoGPT with Codex CLI: current Responses configuration",
+    "datePublished": "2026-08-09",
+    "dateModified": "2026-08-09",
+    "author": {"@type": "Person", "name": "Nova"},
+    "publisher": {"@type": "Organization", "name": "ModelChoice"},
+    "description": "Configure NanoGPT as a Codex CLI model provider using the Responses API.",
+    "mainEntityOfPage": "https://modelchoice-guide.netlify.app/guides/nanogpt-codex-cli.html"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="../index.html" aria-label="ModelChoice home"><span class="brand-mark" aria-hidden="true">M</span>ModelChoice</a>
+      <div class="nav-links">
+        <a href="#configure">Configure</a>
+        <a href="#verify">Verify</a>
+        <a href="#troubleshoot">Troubleshoot</a>
+        <a href="#rollback">Rollback</a>
+      </div>
+      <a class="button button-small" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Get 5% off web queries</a>
+    </nav>
+  </header>
+
+  <main id="main" class="article-main">
+    <article>
+      <header class="article-hero shell">
+        <p class="eyebrow">Advertisement <span aria-hidden="true">·</span> independent setup guide</p>
+        <h1>NanoGPT with Codex CLI: use the Responses configuration.</h1>
+        <p class="lede">Current Codex CLI releases need <code>wire_api = "responses"</code> for a custom NanoGPT provider. This guide gives you the minimal user-level config, a secret-safe check, focused error diagnosis and a clean rollback.</p>
+        <p class="microcopy"><strong>Referral disclosure:</strong> the NanoGPT invitation links on this page give you 5% off queries on NanoGPT’s website; they do not claim an API discount. This site may receive platform credit after a qualifying purchase. Terms can change.</p>
+        <div class="article-meta"><span>Fact-checked 9 August 2026</span><span>Config parsed with Python 3.11 TOML</span><span>No paid inference claimed</span></div>
+      </header>
+
+      <div class="article-layout shell">
+        <aside class="article-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#before">Before you change anything</a>
+          <a href="#configure">Minimal configuration</a>
+          <a href="#verify">Verify without exposing your key</a>
+          <a href="#models">Choose a current model ID</a>
+          <a href="#troubleshoot">Troubleshooting</a>
+          <a href="#rollback">Rollback</a>
+          <a href="#sources">Sources and limits</a>
+        </aside>
+
+        <div class="article-content">
+          <section class="callout important">
+            <h2>The stale-setting trap</h2>
+            <p>NanoGPT’s current Codex guide explicitly says older examples using <code>wire_api = "chat"</code> fail with recent Codex CLI versions. Use <code>responses</code>. This setting selects the API protocol; it is not a model name.</p>
+          </section>
+
+          <section id="before">
+            <p class="eyebrow">Step 1</p>
+            <h2>Back up first, then install.</h2>
+            <p>Codex stores user configuration in <code>~/.codex/config.toml</code>. Preserve an existing file rather than replacing custom profiles, sandbox settings or MCP servers blindly.</p>
+            <pre><code>mkdir -p ~/.codex
+if [ -f ~/.codex/config.toml ]; then
+  cp ~/.codex/config.toml ~/.codex/config.toml.before-nanogpt
+fi
+npm install -g @openai/codex
+codex --version</code></pre>
+            <p>NanoGPT currently specifies Node.js 22 or newer for this integration. Prefer a Node version manager or a user-writable npm prefix over <code>sudo npm install</code>.</p>
+          </section>
+
+          <section id="configure">
+            <p class="eyebrow">Step 2</p>
+            <h2>Add a named NanoGPT provider.</h2>
+            <p>Merge these top-level values and provider table into <code>~/.codex/config.toml</code>. If those keys already exist, update them once—duplicate TOML keys are invalid.</p>
+            <pre><code>model_provider = "nanogpt"
+model = "openai/gpt-5.2"
+
+[model_providers.nanogpt]
+name = "NanoGPT"
+base_url = "https://nano-gpt.com/api/v1"
+env_key = "NANOGPT_API_KEY"
+wire_api = "responses"</code></pre>
+            <p><code>openai/gpt-5.2</code> is a current documented example, not a permanent recommendation. Check the live model catalogue before choosing a model.</p>
+            <h3>Set the key outside the TOML file</h3>
+            <p>Use an environment variable; do not paste a reusable key into a project file, command example, screenshot or repository.</p>
+            <pre><code># Current shell only; leading space may avoid history where HISTCONTROL supports it
+ export NANOGPT_API_KEY="paste-your-key-locally"
+codex</code></pre>
+            <p>For persistence, add the export to the appropriate private shell profile and restrict that file’s permissions. Open a new terminal afterwards. The official NanoGPT installer also supports browser login, but manual setup makes each file change visible.</p>
+          </section>
+
+          <section id="verify">
+            <p class="eyebrow">Step 3</p>
+            <h2>Check structure and presence, not the secret itself.</h2>
+            <p>Python 3.11 can parse the configuration without printing it. The second command reports only whether the variable exists.</p>
+            <pre><code>python3 -c 'import pathlib,tomllib; tomllib.loads(pathlib.Path.home().joinpath(".codex/config.toml").read_text()); print("TOML is valid")'
+python3 -c 'import os; print("NANOGPT_API_KEY is set" if os.getenv("NANOGPT_API_KEY") else "NANOGPT_API_KEY is missing")'
+codex --version</code></pre>
+            <p>Then launch <code>codex</code> in a disposable test repository and use a small prompt. A real model request is billable; inspect NanoGPT’s usage page and exact request cost rather than assuming the referral discount applies.</p>
+          </section>
+
+          <section id="models">
+            <p class="eyebrow">Model choice</p>
+            <h2>Use a callable ID from the live catalogue.</h2>
+            <p>NanoGPT says availability changes frequently and identifies <code>GET /api/v1/models</code> as the authoritative source for callable text-model IDs. Listing models does not require a key:</p>
+            <pre><code>curl -fsS https://nano-gpt.com/api/v1/models</code></pre>
+            <p>Copy an exact <code>data[].id</code> value into the top-level <code>model</code> setting, or override it for one launch:</p>
+            <pre><code>codex --model MODEL_ID_FROM_THE_LIVE_CATALOGUE</code></pre>
+            <p>Do not infer feature parity from a model appearing in the list. Codex relies on Responses API behaviour and tool calling, so a listed chat model may still be a poor fit for an agent workflow.</p>
+          </section>
+
+          <section id="troubleshoot">
+            <p class="eyebrow">Diagnostic path</p>
+            <h2>Fix the category, not the symptom.</h2>
+            <div class="diagnostic-grid">
+              <div><h3>Config or protocol error</h3><p>Parse the TOML. Confirm the table is exactly <code>[model_providers.nanogpt]</code>, the selected provider is <code>nanogpt</code>, and <code>wire_api</code> is <code>responses</code>, not <code>chat</code>.</p></div>
+              <div><h3>401 authentication</h3><p>The key is missing or invalid. Check variable presence without printing its value, open a fresh terminal after profile changes, and rotate any key that was exposed.</p></div>
+              <div><h3>402 payment required</h3><p>The authenticated account has insufficient balance. Add funds only if you choose to; do not keep retrying. A referral click alone does not provide prepaid API credit.</p></div>
+              <div><h3>404 or model not found</h3><p>Refresh <code>/api/v1/models</code> and use an exact current ID. Do not rely on a copied model list.</p></div>
+              <div><h3>429 rate limit</h3><p>Wait and respect <code>Retry-After</code> when supplied. NanoGPT says this can represent throughput or a per-key daily limit.</p></div>
+              <div><h3>500, 503 or timeout</h3><p>Retry a small number of times with backoff. If persistent, try another compatible model and retain the <code>X-Request-ID</code> for support.</p></div>
+            </div>
+          </section>
+
+          <section id="rollback">
+            <p class="eyebrow">Reversible by design</p>
+            <h2>Restore your previous setup.</h2>
+            <p>If you made the backup above, restore it and remove the key from the current shell. This does not revoke the key at NanoGPT.</p>
+            <pre><code>if [ -f ~/.codex/config.toml.before-nanogpt ]; then
+  mv ~/.codex/config.toml.before-nanogpt ~/.codex/config.toml
+else
+  rm -f ~/.codex/config.toml
+fi
+unset NANOGPT_API_KEY</code></pre>
+            <p>Also remove any persistent export you added to a shell profile. Revoke the key in NanoGPT’s API-key page if it was disclosed or is no longer needed.</p>
+          </section>
+
+          <section class="callout" aria-labelledby="choice-heading">
+            <p class="eyebrow">Optional next step</p>
+            <h2 id="choice-heading">Keep the setup guide free of gates.</h2>
+            <p>You can create a NanoGPT account through the clean <a href="https://nano-gpt.com/api" target="_blank" rel="noopener">official API page</a>. If the separate website-query discount is useful, the disclosed invitation is below.</p>
+            <a class="button" href="https://nano-gpt.com/r/MRpqWxhj" target="_blank" rel="sponsored nofollow noopener">Accept the 5% web-query invitation <span aria-hidden="true">→</span></a>
+          </section>
+
+          <section id="sources">
+            <p class="eyebrow">Method and limits</p>
+            <h2>Primary sources, with a clear test boundary.</h2>
+            <p>This page was checked against NanoGPT’s current <a href="https://docs.nano-gpt.com/integrations/codex-cli" target="_blank" rel="noopener">Codex CLI guide</a>, <a href="https://docs.nano-gpt.com/api-reference/endpoint/models" target="_blank" rel="noopener">model endpoint documentation</a>, <a href="https://docs.nano-gpt.com/api-reference/miscellaneous/error-handling" target="_blank" rel="noopener">error reference</a>, and OpenAI’s <a href="https://developers.openai.com/codex/config-file/config-reference" target="_blank" rel="noopener">Codex configuration reference</a> on 9 August 2026.</p>
+            <p>The published TOML fixture was parsed successfully. No paid inference request was made for this page, so this guide does not claim an end-to-end model benchmark or personal product experience. Interfaces, model IDs and requirements can change; the linked first-party pages remain authoritative.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div><a class="brand footer-brand" href="../index.html"><span class="brand-mark" aria-hidden="true">M</span>ModelChoice</a><p>An independent guide to practical multi-model AI access.</p></div>
+      <div><strong>Verify the facts</strong><a href="https://docs.nano-gpt.com/integrations/codex-cli" target="_blank" rel="noopener">NanoGPT Codex guide</a><a href="https://nano-gpt.com/pricing" target="_blank" rel="noopener">Live pricing</a><a href="https://nano-gpt.com/legal/terms-of-service" target="_blank" rel="noopener">Terms of service</a></div>
+      <div><strong>Disclosure</strong><p>Referral links may earn this site credit. NanoGPT does not operate or endorse this independent guide.</p></div>
+    </div>
+    <div class="shell footer-bottom"><span>Last fact-check: 9 August 2026</span><span>No analytics or key collection</span></div>
+  </footer>
+</body>
+</html>

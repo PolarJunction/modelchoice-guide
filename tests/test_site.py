@@ -1,4 +1,5 @@
 import re
+import tomllib
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -57,6 +58,24 @@ class SiteTests(unittest.TestCase):
         self.assertIn('id="main"', self.text)
         self.assertIn('aria-live="polite"', self.text)
         self.assertEqual(self.text.count("<h1>"), 1)
+
+    def test_codex_guide_is_current_and_secret_safe(self):
+        guide = (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8")
+        escaped = guide.replace('"', '&quot;')
+        self.assertGreaterEqual(escaped.count('wire_api = &quot;responses&quot;'), 2)
+        self.assertIn("older examples using", guide)
+        self.assertIn("No paid inference claimed", guide)
+        self.assertIn('rel="sponsored nofollow noopener"', guide)
+        fixture = '''model_provider = "nanogpt"
+model = "openai/gpt-5.2"
+[model_providers.nanogpt]
+name = "NanoGPT"
+base_url = "https://nano-gpt.com/api/v1"
+env_key = "NANOGPT_API_KEY"
+wire_api = "responses"
+'''
+        parsed = tomllib.loads(fixture)
+        self.assertEqual(parsed["model_providers"]["nanogpt"]["wire_api"], "responses")
 
 
 if __name__ == "__main__":

@@ -10,8 +10,12 @@ Links to NanoGPT invitations are referral links. Visitors receive NanoGPT's stat
 
 ```bash
 python3 -m unittest discover -s tests -v
-npx --yes html-validate@9.7.1 index.html
+npx --yes html-validate@9.7.1 index.html "guides/*.html"
 node --input-type=module -e "import('./assets/calculator.mjs').then(({calculateSavings}) => console.log(calculateSavings(20)))"
 ```
 
 Product and pricing claims were last checked against first-party NanoGPT pages on 9 August 2026.
+
+## Guides
+
+- [`guides/nanogpt-codex-cli.html`](guides/nanogpt-codex-cli.html) — current Responses API configuration, secret-safe checks, troubleshooting and rollback.
