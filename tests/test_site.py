@@ -108,6 +108,25 @@ class SiteTests(unittest.TestCase):
         self.assertIn("Referral link", self.text)
         self.assertIn("How does this site make money?", self.text)
 
+    def test_no_em_dashes_in_public_copy(self):
+        public = [
+            self.text,
+            (ROOT / "guides" / "nanogpt-codex-cli.html").read_text(encoding="utf-8"),
+            (ROOT / "guides" / "nanogpt-claude-code.html").read_text(encoding="utf-8"),
+            (ROOT / "assets" / "styles.css").read_text(encoding="utf-8"),
+        ]
+        for content in public:
+            self.assertNotIn("—", content)
+
+    def test_pixel_art_carried_through_page(self):
+        self.assertIn('class="pixel-logo"', self.text)
+        self.assertGreaterEqual(self.text.count('class="pixel-icon'), 6)
+        self.assertGreaterEqual(self.text.count('class="pixel-mono"'), 6)
+        self.assertIn('class="footer-parade"', self.text)
+        self.assertGreaterEqual(self.text.count('class="parade-sprite'), 14)
+        for guide in ("nanogpt-codex-cli.html", "nanogpt-claude-code.html"):
+            self.assertIn('class="pixel-logo"', (ROOT / "guides" / guide).read_text(encoding="utf-8"))
+
     def test_motion_is_progressive_and_respects_user_preference(self):
         script = (ROOT / "assets" / "experience.mjs").read_text(encoding="utf-8")
         styles = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
